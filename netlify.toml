@@ -1,0 +1,25 @@
+[build]
+  command = "npm run build:client"
+  functions = "netlify/functions"
+  publish = "dist/spa"
+
+[functions]
+  external_node_modules = ["express"]
+  node_bundler = "esbuild"
+
+# Form processing configuration
+[[plugins]]
+  package = "@netlify/plugin-sitemap"
+
+# Email notifications for form submissions
+[[context.production.form_submissions]]
+  template = "form-notification"
+  from = "noreply@netlify.com"
+  to = ["kachhiyadarshan6514@gmail.com"]
+  subject = "New Contact Form Submission from Portfolio"
+
+[[redirects]]
+  force = true
+  from = "/api/*"
+  status = 200
+  to = "/.netlify/functions/api/:splat"
